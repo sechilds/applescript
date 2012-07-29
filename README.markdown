@@ -11,7 +11,7 @@ all the applescripts and put them in the proper directory.
 
 * `git clone git://github.com/sechilds/applescript ~/applescript`
 * `cd ~/applescript`
-* `rake install`
+* `rake`
 
 I think. Please don't try this yet.
 

@@ -19,7 +19,7 @@ desc "Build scripts for iCal"
 task :ical => ['Applications/iCal.dir'] + FileList['Applications/iCal/*.applescript']
 
 desc "Build scripts for Mail.app"
-task :mail => ['Applications/Mail.dir'] + fileList['Applications/Mail/*.applscript']
+task :mail => ['Applications/Mail.dir'] + fileList['Applications/Mail/*.applescript']
 
 task :ical_clean => FileList['Applications/iCal/*.applescript'].sub(/\.applescript/,'.scpt')
 
