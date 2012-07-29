@@ -10,7 +10,7 @@ rule '.dir' do |t|
 end
 
 task :default => [:random, :application]
-task :application => [:ical]
+task :application => [:mail]
 
 desc "Build random scripts"
 task :random => ['Random.dir'] + FileList['Random/*.applescript']
@@ -18,7 +18,12 @@ task :random => ['Random.dir'] + FileList['Random/*.applescript']
 desc "Build scripts for iCal"
 task :ical => ['Applications/iCal.dir'] + FileList['Applications/iCal/*.applescript']
 
+desc "Build scripts for Mail.app"
+task :mail => ['Applications/Mail.dir'] + fileList['Applications/Mail/*.applscript']
+
 task :ical_clean => FileList['Applications/iCal/*.applescript'].sub(/\.applescript/,'.scpt')
+
+task :mail_clean => FileList['Applications/Mail/*.applescript'].sub(/\.applescript/,'.scpt')
 
 task :clean => FileList['*.scpt'].each do |t|
         puts t
