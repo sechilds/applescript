@@ -1,7 +1,7 @@
 #Rake.application.options.trace = true
 
 rule '.scpt' => '.applescript' do |t|
-	sh %{osacompile -o #{t.name} #{t.source}}
+	sh %{osacompile -o '#{t.name}' '#{t.source}'}
 end
 
 rule '.dir' do |t|
