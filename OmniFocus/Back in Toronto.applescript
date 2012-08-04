@@ -14,17 +14,17 @@ property enabledNotifications : {"General", "Error"}
 property iconApplication : "OmniFocus.app"
 
 on main()
-	if not appIsRunning("iCal") then
-		tell application "iCal"
+	if not appIsRunning("Calendar") then
+		tell application "Calendar"
 			activate
 		end tell
 		tell application "System Events"
-			set visible of process "iCal" to false
+			set visible of process "Calendar" to false
 		end tell
 		delay 60
 	end if
 	
-	tell application "iCal"
+	tell application "Calendar"
 		tell calendar "Core Research Team"
 			set theEventList to every event whose summary contains "Stephen in Ottawa"
 		end tell
@@ -38,7 +38,7 @@ on main()
 		-- return firstDate
 	end tell
 	tell application "System Events"
-		set visible of process "iCal" to false
+		set visible of process "Calendar" to false
 	end tell
 	
 	
