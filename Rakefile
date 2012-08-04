@@ -15,11 +15,14 @@ task :application => [:mail]
 desc "Build random scripts"
 task :random_compile => ['Random.dir'] + FileList['Random/*.applescript'].ext("scpt")
 
-desc "Build scripts for iCal"
-task :ical_compile => ['Applications/iCal.dir'] + FileList['iCal/*.applescript'].ext("scpt")
+desc "Build scripts for Calendar"
+task :calendar_compile => ['Applications/Calendar.dir'] + FileList['Calendar/*.applescript'].ext("scpt")
 
 desc "Build scripts for Mail.app"
 task :mail_compile => ['Applications/Mail.dir'] + FileList['Mail/*.applescript'].ext("scpt")
+
+desc "Build scripts for OmniFocus"
+task :omnifocus_compile => ['Applications/OmniFocus.dir'] + FileList['OmniFocus/*.applescript'].ext("scpt")
 
 desc "Copy Scripts to Library Folder"
 task :random => :random_compile do
@@ -29,11 +32,11 @@ task :random => :random_compile do
 	puts "Done"
 end
 
-desc "Copy Scripts to iCal Folder"
-task :ical => :ical_compile do
-	puts "Copying iCal Scripts to Library Folder"
-	output = "~/Library/Scripts/Applications/iCal"
-	sh %{cp iCal/*.scpt #{output}}
+desc "Copy Scripts to Calendar Folder"
+task :calendar => :calendar_compile do
+	puts "Copying Calendar Scripts to Library Folder"
+	output = "~/Library/Scripts/Applications/Calendar"
+	sh %{cp Calendar/*.scpt #{output}}
 	puts "Done"
 end
 
@@ -45,9 +48,20 @@ task :mail => :mail_compile do
 	puts "Done"
 end
 
+desc "Copy Scripts to OmniFocus Folder"
+task :omnifocus => :omnifocus_compile do
+	puts "Copying OmniFocus Scripts to Library Folder"
+	output = "~/Library/Scripts/Applications/OmniFocus"
+	sh %{cp OmniFocus/*.scpt #{output}}
+	puts "Done"
+end
+
+
 task :ical_clean => FileList['Applications/iCal/*.applescript'].sub(/\.applescript/,'.scpt')
 
 task :mail_clean => FileList['Applications/Mail/*.applescript'].sub(/\.applescript/,'.scpt')
+
+task :omnifocus_clean => FileList['Applications/OmniFocus/*.applescript'].sub(/\.applescript/,'.scpt')
 
 task :clean => FileList['*.scpt'].each do |t|
         puts t
