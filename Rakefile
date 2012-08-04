@@ -10,7 +10,7 @@ rule '.dir' do |t|
 end
 
 task :default => [:random, :application]
-task :application => [:mail]
+task :application => [:mail, :omnifocus]
 
 desc "Build random scripts"
 task :random_compile => ['Random.dir'] + FileList['Random/*.applescript'].ext("scpt")
