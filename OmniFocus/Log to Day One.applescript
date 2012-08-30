@@ -69,7 +69,7 @@ tell application "OmniFocus"
 	set ExportList to ExportList & strText as Unicode text
 	
 	-- Modify "/usr/local/bin/dayone/dayone" to "/usr/local/bin/dayone" if you didn't screw it up like I did.
-	do shell script "echo " & (quoted form of ExportList) & "|tr -d \"\\t\"|/usr/local/bin/dayone/dayone new"
+	do shell script "echo " & (quoted form of ExportList) & "|tr -d \"\\t\"|/usr/local/bin/dayone new"
 	
 end tell
 
