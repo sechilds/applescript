@@ -58,11 +58,13 @@ tell application "OmniFocus"
 		set strText to ""
 		repeat with iTask from 1 to length of lstName
 			set {strName, varContext, varProject, varDate} to {item iTask of lstName, item iTask of lstContext, item iTask of lstProject, item iTask of lstDate}
-			if varDate is not missing value then set strText to strText & short date string of varDate & " - "
-			if varProject is not missing value then set strText to strText & " [" & varProject & "] - "
-			set strText to strText & strName
-			if varContext is not missing value then set strText to strText & " *@" & varContext & "*"
-			set strText to strText & "  " & return
+			if varProject is not "Weekday Morning" and varProject is not "Weekday Evening" and varProject is not "Weekend Morning" and varProject is not "Weekend Evening" then
+				if varDate is not missing value then set strText to strText & short date string of varDate & " - "
+				if varProject is not missing value then set strText to strText & " [" & varProject & "] - "
+				set strText to strText & strName
+				if varContext is not missing value then set strText to strText & " *@" & varContext & "*"
+				set strText to strText & "  " & return
+			end if
 		end repeat
 	end tell
 	
