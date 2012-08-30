@@ -52,7 +52,7 @@ tell application "OmniFocus"
 		
 		--ASSEMBLE THE COMPLETED TASK LIST
 		set ExportList to ExportList & return & return & "Tasks Completed in the last day" & return & "---" & return & return & return
-		set day_ago to (current date) - 1 * days
+		set day_ago to (current date) - 2 * days
 		set refDoneInLastWeek to a reference to (flattened tasks where (completion date >= day_ago))
 		set {lstName, lstContext, lstProject, lstDate} to {name, name of its context, name of its containing project, completion date} of refDoneInLastWeek
 		set strText to ""
@@ -83,7 +83,7 @@ on IndentAndProjects(oFolder)
 	tell application id "OFOC"
 		
 		set {dlm, my text item delimiters} to {my text item delimiters, return & return}
-		set day_ago to (current date) - 1 * days
+		set day_ago to (current date) - 2 * days
 		set strCompleted to (name of (projects of oFolder where its status is done and completion date >= day_ago)) as string
 		
 		set my text item delimiters to dlm
