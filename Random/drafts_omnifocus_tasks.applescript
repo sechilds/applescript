@@ -1,4 +1,4 @@
-on hazelProcesFile(theFile)
+on hazelProcessFile(theFile)
 	set p to POSIX path of "/Users/sechilds/Dropbox/Apps/Drafts/Journal.txt"
 	set input_file to POSIX path of p
 	set l to paragraphs of (do shell script "grep . " & input_file)
@@ -9,5 +9,5 @@ on hazelProcesFile(theFile)
 			make new inbox task with properties {name:v}
 		end repeat
 	end tell
-end hazelProcesFile
+end hazelProcessFile
 
