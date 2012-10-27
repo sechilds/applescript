@@ -9,7 +9,7 @@ rule '.dir' do |t|
         sh %{mkdir -p #{dest}}
 end
 
-task :default => [:random, :application]
+task :default => [:random, :libraries, :application]
 task :application => [:mail, :omnifocus]
 
 desc "Build random scripts"
