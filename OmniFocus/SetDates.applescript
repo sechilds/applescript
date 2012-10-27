@@ -82,7 +82,7 @@ on Apply2SeldTasks(strCMD)
 	if lstCmds = {} then return
 	
 	-- LOAD RELATIVE DATES LIBRARY
-	set libOFDates to load script ((path to me) as string) & "Contents:Resources:" & "OF_DateLib.scpt" as alias
+	set libOFDates to load script "Users:sechilds:Library:Scripts:Libraries:OF_DateLIb.scpt" as alias
 	
 	-- PROCESS THE COMMANDS, WHILE BUILDING A LOG
 	set {lngDue, lngStart} to {0, 0}
