@@ -73,7 +73,7 @@ on main()
 	--Display summary notification
 	if showSummaryNotification then
 		if successTot > 1 then set alertItemNum to "s"
-		set alertText to successTot & " item" & alertItemNum & " now due on " & date string of (firstDate) & "." as string
+		set alertText to successTot & " item" & alertItemNum & " now starting on " & date string of (firstDate) & "." as string
 		my notify("General", "Ottawa Trip Script complete", alertText)
 	end if
 end main

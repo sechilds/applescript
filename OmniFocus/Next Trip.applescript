@@ -1,3 +1,4 @@
+-- To change your weekend start/stop date/time, modify the following properties
 property StartTime : 6 --due time in hrs (24 hr clock)
 
 --To enable alerts, change these settings to True _and_ uncomment
@@ -26,21 +27,19 @@ on main()
 	
 	tell application "Calendar"
 		tell calendar "Stephen Childs (TripIt)"
-			set theEventList to every event whose summary contains "Ottawa, Canada"
+			set theEventList to every event whose allday event is true and description does not contain "[Lodging]"
 		end tell
 		set dateList to {}
 		repeat with theEvent in theEventList
-			if (end date of theEvent) is greater than or equal to (current date) then
-				set the end of dateList to ((end date of theEvent))
+			if (start date of theEvent) > (current date) then
+				set the end of dateList to start date of theEvent
 			end if
 		end repeat
-		set firstDate to first item of dateList
-		-- return firstDate
 	end tell
+	set firstDate to first item of the reverse of simple_sort(dateList)
 	tell application "System Events"
 		set visible of process "Calendar" to false
 	end tell
-	
 	
 	tell application "OmniFocus"
 		tell content of front document window of front document
@@ -74,7 +73,7 @@ on main()
 	if showSummaryNotification then
 		if successTot > 1 then set alertItemNum to "s"
 		set alertText to successTot & " item" & alertItemNum & " now starting on " & date string of (firstDate) & "." as string
-		my notify("General", "Back to Toronto Script complete", alertText)
+		my notify("General", "Ottawa Trip Script complete", alertText)
 	end if
 end main
 
@@ -96,7 +95,6 @@ on setDate(selectedItem, startDate, dueDate)
 	return success
 end setDate
 
-
 on notify(alertName, alertTitle, alertText)
 	if useGrowl then
 		tell application "Growl"
@@ -109,6 +107,30 @@ end notify
 on appIsRunning(appName)
 	tell application "System Events" to (name of processes) contains appName
 end appIsRunning
+
+
+on simple_sort(my_list)
+	set the index_list to {}
+	set the sorted_list to {}
+	repeat (the number of items in my_list) times
+		set the low_item to ""
+		repeat with i from 1 to (number of items in my_list)
+			if i is not in the index_list then
+				set this_item to item i of my_list as text
+				if the low_item is "" then
+					set the low_item to this_item
+					set the low_item_index to i
+				else if this_item comes before the low_item then
+					set the low_item to this_item
+					set the low_item_index to i
+				end if
+			end if
+		end repeat
+		set the end of sorted_list to the low_item
+		set the end of the index_list to the low_item_index
+	end repeat
+	return the sorted_list
+end simple_sort
 
 main()
 

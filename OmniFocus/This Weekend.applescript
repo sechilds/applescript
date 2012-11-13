@@ -106,7 +106,7 @@ on main()
 	--Display summary notification
 	if showSummaryNotification then
 		if successTot > 1 then set alertItemNum to "s"
-		set alertText to successTot & " item" & alertItemNum & " now due this weekend." as string
+		set alertText to successTot & " item" & alertItemNum & " now starting this weekend." as string
 		my notify("General", "This Weekend Script complete", alertText)
 	end if
 end main
