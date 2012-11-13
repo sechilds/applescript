@@ -26,7 +26,7 @@ on main()
 	
 	tell application "Calendar"
 		tell calendar "Stephen Childs (TripIt)"
-			set theEventList to every event whose summary contains "Ottawa, Canada"
+			set theEventList to every event whose allday event is true and description does not contain "[Lodging]"
 		end tell
 		set dateList to {}
 		repeat with theEvent in theEventList
@@ -74,7 +74,7 @@ on main()
 	if showSummaryNotification then
 		if successTot > 1 then set alertItemNum to "s"
 		set alertText to successTot & " item" & alertItemNum & " now starting on " & date string of (firstDate) & "." as string
-		my notify("General", "Back to Toronto Script complete", alertText)
+		my notify("General", "After Trip Script complete", alertText)
 	end if
 end main
 
