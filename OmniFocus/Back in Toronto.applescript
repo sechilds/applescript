@@ -25,8 +25,8 @@ on main()
 	end if
 	
 	tell application "Calendar"
-		tell calendar "Core Research Team"
-			set theEventList to every event whose summary contains "Stephen in Ottawa"
+		tell calendar "Stephen Childs (TripIt)"
+			set theEventList to every event whose summary contains "Ottawa, Canada"
 		end tell
 		set dateList to {}
 		repeat with theEvent in theEventList
