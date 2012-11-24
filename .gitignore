@@ -1,3 +1,5 @@
 *.scpt
 .DS_Store
+previous/
+text/
 
