@@ -15,7 +15,7 @@ on hazelProcessFile(theFile)
 		activate
 		tell the first document
 			set theContext to first flattened context where its name = "OmniFocus"
-			set theProject to the first flattened context where its name = "DropVox"
+			set theProject to the first flattened project where its name = "DropVox"
 			tell theProject
 				set NewTask to make new task with properties {name:"Process Voice Note " & theFileNameNoext & ".caf", note:"Created from DropVox.", context:theContext}
 			end tell
