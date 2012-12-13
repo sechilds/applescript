@@ -14,7 +14,9 @@ on hazelProcessFile(theFile)
 	tell application "OmniFocus"
 		activate
 		tell the first document
-			set NewTask to make new inbox task with properties {name:"Process Voice Note " & theFileNameNoext & ".caf", note:"Created from DropVox."}
+			set theContext to first flattened context where its name = "OmniFocus"
+			set theProject to the first flattened context where its name = "DropVox"
+			set NewTask to tell theProject to make new task with properties {name:"Process Voice Note " & theFileNameNoext & ".caf", note:"Created from DropVox.", context:theContext}
 			tell the note of NewTask
 				make new file attachment with properties {file name:destFileName, embedded:true}
 			end tell
