@@ -135,15 +135,15 @@ on startToday(selectedItem, currDate)
 	set success to false
 	tell application "OmniFocus"
 		try
-			set originalStartDateTime to start date of selectedItem
-			if (originalStartDateTime is not missing value) then
+			-- set originalStartDateTime to start date of selectedItem
+			-- if (originalStartDateTime is not missing value) then
 				--Set new start date with original start time
-				set start date of selectedItem to (currDate + (time of originalStartDateTime))
-				set success to true
-			else
+				-- set start date of selectedItem to (currDate + (time of originalStartDateTime))
+				-- set success to true
+			-- else
 				set start date of selectedItem to (currDate + (startTime * hours))
 				set success to true
-			end if
+			-- end if
 		end try
 	end tell
 	return success
