@@ -21,4 +21,3 @@ tell fro nt window of application "OmniFocus"
 		 end if
 	 end try
  end tell 
-
