@@ -1,4 +1,4 @@
-tell fro nt window of application "OmniFocus"
+tell front window of application "OmniFocus"
 	 try
 		 set theTrees to selected trees of content
 
