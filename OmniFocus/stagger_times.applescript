@@ -7,6 +7,9 @@ tell application "OmniFocus"
 		set validSelectedItemsList to value of (selected trees where class of its value is not item and class of its value is not folder)
 		set firstTask to value of first item of selected trees
 		set timestamp to start date of firstTask
+		if timestamp is missing value then
+			set timestamp to (current date)
+		end if
 		
 		repeat with thisItem in validSelectedItemsList
 			set start date of thisItem to timestamp
