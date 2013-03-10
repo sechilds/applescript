@@ -16,7 +16,7 @@
 -- Mail.app account for the sent mailbox the script should use
 -- Note that although you can theoretically target the virtual sent mailbox of all Mail.app acocunts combined
 -- AppleScript delivers very inconsistent results when doing so, hence this is not recommended
-property theAccount : "My Mail Account"
+property theAccount : "Irpe-Epri"
 
 -- Open OmniFocus Quick Entry window (true) or add the task silently to the OmniFocus Inbox (false)?
 property ShowQuickEntry : true
@@ -25,7 +25,7 @@ property ShowQuickEntry : true
 property PreFix : "Waiting For"
 
 -- Text between receipient name and subject in the task name
-property MidFix : "to come back re"
+property MidFix : "to reply re"
 
 -- Enable Growl notification when adding tasks to OmniFocus Inbox?
 -- Growl is not used when using the Quick Entry window
