@@ -1,0 +1,15 @@
+-- Developed by Joe Workman
+-- http://joeworkman.net
+
+on encode_URL(txt)
+	set python_script to "import sys, urllib; print urllib.quote(sys.argv[1])"
+	set python_script to "python -c " & Â
+		quoted form of python_script & " " & Â
+		quoted form of txt
+	return do shell script python_script
+end encode_URL
+
+on handle_string(theString)
+	-- say theString
+	open location "kiwi://post?text=" & encode_URL(theString)
+end handle_string
