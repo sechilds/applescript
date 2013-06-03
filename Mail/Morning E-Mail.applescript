@@ -7,6 +7,7 @@ tell application "Mail"
 	tell composeMessage
 		make new to recipient with properties {name:"Ross Finnie", address:"rfinnie@uottawa.ca"}
 		make new bcc recipient at end of bcc recipients with properties {name:"Dejan Pavlic", address:"Dejan.Pavlic@uottawa.ca"}
+		make new bcc recipient at end of bcc recipients with properties {name:"Andrew Wismer", address:"awismer@irpe-epri.ca"}
 		set the subject to theSubject
 		set the sender to theSender
 		set visible to true
