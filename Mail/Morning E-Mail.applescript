@@ -1,3 +1,4 @@
+set cmd1 to do shell script POSIX path of "/usr/local/bin/icalBuddy" & " -npn -nc -eep \"*\" -ic \"John's EPRI Work Schedule\" eventsToday"
 tell application "Mail"
 	activate
 	set addrVar to "sechilds@gmail.com"
@@ -8,6 +9,9 @@ tell application "Mail"
 		make new to recipient with properties {name:"Ross Finnie", address:"rfinnie@uottawa.ca"}
 		make new bcc recipient at end of bcc recipients with properties {name:"Dejan Pavlic", address:"Dejan.Pavlic@uottawa.ca"}
 		make new bcc recipient at end of bcc recipients with properties {name:"Nemanja Jevtovic", address:"njevtovic@irpe-epri.ca"}
+		if (length of cmd1) > 0 then
+			make new bcc recipient at end of bcc recipients with properties {name:"John Sergeant", address:"jsergeant@irpe-epri.ca"}
+		end if
 		set the subject to theSubject
 		set the sender to theSender
 		set visible to true
