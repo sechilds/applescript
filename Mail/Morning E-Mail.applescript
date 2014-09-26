@@ -9,6 +9,7 @@ tell application "Mail"
 		make new to recipient with properties {name:"Ross Finnie", address:"rfinnie@uottawa.ca"}
 		make new bcc recipient at end of bcc recipients with properties {name:"Dejan Pavlic", address:"Dejan.Pavlic@uottawa.ca"}
 		make new bcc recipient at end of bcc recipients with properties {name:"Nemanja Jevtovic", address:"njevtovic@irpe-epri.ca"}
+		make new bcc recipient at end of bcc recipients with properties {name:"Kaveh Afshar", address:"kaveh.afshar@irpe-epri.ca"}
 		if (length of cmd1) > 0 then
 			make new bcc recipient at end of bcc recipients with properties {name:"John Sergeant", address:"jsergeant@irpe-epri.ca"}
 		end if

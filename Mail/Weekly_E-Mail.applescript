@@ -12,6 +12,7 @@ tell application "Mail"
 		make new to recipient with properties {name:"Ross Finnie", address:"rfinnie@uottawa.ca"}
 		make new cc recipient at end of cc recipients with properties {name:"Dejan Pavlic", address:"Dejan.Pavlic@uottawa.ca"}
 		make new cc recipient at end of cc recipients with properties {name:"Nemanja Jevtovic", address:"njevtovic@irpe-epri.ca"}
+		make new cc recipient at end of cc recipients with properties {name:"Kaveh Afshar", address:"kaveh.afshar@irpe-epri.ca"}
 		make new cc recipient at end of cc recipients with properties {name:"John Sergeant", address:"jsergeant@irpe-epri.ca"}
 		set the subject to theSubject
 		set the sender to theSender
