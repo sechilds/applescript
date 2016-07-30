@@ -33,7 +33,9 @@ property isInbox : true
 -- Do you want to email all actions from a specific context? (true / false)
 property isASAP : false
 -- What context? 
-property pContext : "@ASAP"
+property pContext : "@Today"
+
+property isToday : true
 
 -- How many characters of any note should be presented?
 property maxNoteChars : 750
@@ -415,17 +417,74 @@ tell application "OmniFocus"
 			end if
 			
 		end if
+
+		------------------------------------------
+		-- Include all Today tasks 
+		------------------------------------------
+		
+		if isToday then
+			tell the default document to tell the front document window
+				set perspective name to "Today"
+				set oTrees to trees of content
+				set n to count of oTrees
+			
+				-- Loop through any detected tasks
+				if oTrees is not equal to {} then
+				
+					-- Append the project name to the task list
+					set theTodayDetail to theTodayDetail & "<h2>&#128336; Today Perspective</h2>
+				
+					<tbody><table><!-- Table Header -->
+					<thead>
+						<tr>
+						<th>Task</th>
+						<th>Due Date</th>
+						<th>&#10004;</th>
+					</tr>
+					</thead>
+					<!-- Table Header -->
+					<tbody>"
+				
+					repeat with d from 1 to n
+						
+						-- Append the tasks's name to the task list
+						set TodayCurrentTask to item d of oTrees
+					
+						if due date of TodayCurrentTask is equal to missing value then
+							set dueDate to "-"
+						else
+							set dueDate to due date of TodayCurrentTask
+						end if
+						
+						set theTodayDetail to theTodayDetail & "
+						
+								<tr>
+									<td>" & name of TodayCurrentTask & "</td>
+									<td>" & dueDate & "</td>
+									<td></td>
+								</tr>" & return
+					
+					end repeat
+				
+				set theTodayDetail to theTodayDetail & "</tbody></table>" & return
+
+				
+			end if
+
+		end tell
+			
+		end if
 		
 	end tell
 	
 end tell
-
+		
 ------------------------------------------
 -- Compose the HTML email 
 -- Here you can alter the order of the elements of the email 
 -- htmlHead must go first
 ------------------------------------------
-set theProgressDetail to htmlHead & theFlaggedProgressDetail & theASAPProgressDetail & theProgressDetail & theInboxProgressDetail & "</body></html>"
+set theProgressDetail to htmlHead & theFlaggedProgressDetail & theASAPProgressDetail & theProgressDetail & theInboxProgressDetail & theTodayDetail & "</body></html>"
 
 
 ------------------------------------------
