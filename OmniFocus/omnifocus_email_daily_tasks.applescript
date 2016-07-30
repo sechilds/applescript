@@ -166,6 +166,7 @@ set theProgressDetail to "<h2> &#128203; Projects</h2>"
 set theInboxProgressDetail to ""
 set theFlaggedProgressDetail to ""
 set theASAPProgressDetail to ""
+set theTodayDetail to ""
 
 
 ------------------------------------------
@@ -365,7 +366,7 @@ tell application "OmniFocus"
 		if isASAP then
 			
 			set lstContext to flattened contexts where name is pContext
-			if lstContext â‰  {} then
+			if lstContext ­ {} then
 				set oContext to first item of lstContext
 			else
 				set oContext to make new context with properties {name:pContext}
@@ -417,20 +418,20 @@ tell application "OmniFocus"
 			end if
 			
 		end if
-
+		
 		------------------------------------------
 		-- Include all Today tasks 
 		------------------------------------------
 		
 		if isToday then
-			tell the default document to tell the front document window
+			tell the front document window
 				set perspective name to "Today"
 				set oTrees to trees of content
 				set n to count of oTrees
-			
+				
 				-- Loop through any detected tasks
 				if oTrees is not equal to {} then
-				
+					
 					-- Append the project name to the task list
 					set theTodayDetail to theTodayDetail & "<h2>&#128336; Today Perspective</h2>
 				
@@ -444,12 +445,12 @@ tell application "OmniFocus"
 					</thead>
 					<!-- Table Header -->
 					<tbody>"
-				
+					
 					repeat with d from 1 to n
 						
 						-- Append the tasks's name to the task list
-						set TodayCurrentTask to item d of oTrees
-					
+						set TodayCurrentTask to value of (item d of oTrees)
+						
 						if due date of TodayCurrentTask is equal to missing value then
 							set dueDate to "-"
 						else
@@ -463,22 +464,22 @@ tell application "OmniFocus"
 									<td>" & dueDate & "</td>
 									<td></td>
 								</tr>" & return
-					
+						
 					end repeat
+					
+					set theTodayDetail to theTodayDetail & "</tbody></table>" & return
+					
+					
+				end if
 				
-				set theTodayDetail to theTodayDetail & "</tbody></table>" & return
-
-				
-			end if
-
-		end tell
+			end tell
 			
 		end if
 		
 	end tell
 	
 end tell
-		
+
 ------------------------------------------
 -- Compose the HTML email 
 -- Here you can alter the order of the elements of the email 
