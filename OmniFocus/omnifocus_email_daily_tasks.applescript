@@ -170,7 +170,7 @@ set theInboxProgressDetail to ""
 set theFlaggedProgressDetail to ""
 set theASAPProgressDetail to ""
 set theTodayDetail to ""
-set theOIADetail to ""
+set theOIAWorkDetail to ""
 
 
 ------------------------------------------
@@ -518,7 +518,7 @@ tell application "OmniFocus"
 							set dueDate to due date of OIACurrentTask
 						end if
 						
-						set theOIADetail to theOIADetail & "
+						set theOIAWorkDetail to theOIAWorkDetail & "
 						
 								<tr>
 									<td>" & name of OIACurrentTask & "</td>
@@ -528,7 +528,7 @@ tell application "OmniFocus"
 						
 					end repeat
 					
-					set theOIADetail to theOIADetail & "</tbody></table>" & return
+					set theOIAWorkDetail to theOIAWorkDetail & "</tbody></table>" & return
 					
 					
 				end if
@@ -546,7 +546,7 @@ end tell
 -- Here you can alter the order of the elements of the email 
 -- htmlHead must go first
 ------------------------------------------
-set theProgressDetail to htmlHead & theFlaggedProgressDetail & theASAPProgressDetail & theProgressDetail & theInboxProgressDetail & theTodayDetail & theOIADetail & "</body></html>"
+set theProgressDetail to htmlHead & theFlaggedProgressDetail & theASAPProgressDetail & theProgressDetail & theInboxProgressDetail & theTodayDetail & theOIAWorkDetail & "</body></html>"
 
 
 ------------------------------------------
