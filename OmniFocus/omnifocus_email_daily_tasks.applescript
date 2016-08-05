@@ -1,4 +1,5 @@
 ------------------------------------------------------------------------------------
+
 -- Omnifocus Daily Task Email 
 ------------------------------------------------------------------------------------
 -- Script name: Email OmniFocus Tasks, Inbox and Flagged
@@ -36,6 +37,8 @@ property isASAP : false
 property pContext : "@Today"
 
 property isToday : true
+
+property isOIAWork : true
 
 -- How many characters of any note should be presented?
 property maxNoteChars : 750
@@ -167,6 +170,7 @@ set theInboxProgressDetail to ""
 set theFlaggedProgressDetail to ""
 set theASAPProgressDetail to ""
 set theTodayDetail to ""
+set theOIADetail to ""
 
 
 ------------------------------------------
@@ -475,6 +479,63 @@ tell application "OmniFocus"
 			end tell
 			
 		end if
+
+		------------------------------------------
+		-- Include all OIAWork tasks 
+		------------------------------------------
+		
+		if isOIAWork then
+			tell the front document window
+				set perspective name to "OIA Work"
+				set oTrees to trees of content
+				set n to count of oTrees
+				
+				-- Loop through any detected tasks
+				if oTrees is not equal to {} then
+					
+					-- Append the project name to the task list
+					set theOIAWorkDetail to theOIAWorkDetail & "<h2>&#128336; OIA Work Perspective</h2>
+				
+					<tbody><table><!-- Table Header -->
+					<thead>
+						<tr>
+						<th>Task</th>
+						<th>Due Date</th>
+						<th>&#10004;</th>
+					</tr>
+					</thead>
+					<!-- Table Header -->
+					<tbody>"
+					
+					repeat with d from 1 to n
+						
+						-- Append the tasks's name to the task list
+						set OIACurrentTask to value of (item d of oTrees)
+						
+						if due date of TodayCurrentTask is equal to missing value then
+							set dueDate to "-"
+						else
+							set dueDate to due date of OIACurrentTask
+						end if
+						
+						set theOIADetail to theOIADetail & "
+						
+								<tr>
+									<td>" & name of OIACurrentTask & "</td>
+									<td>" & dueDate & "</td>
+									<td></td>
+								</tr>" & return
+						
+					end repeat
+					
+					set theOIADetail to theOIADetail & "</tbody></table>" & return
+					
+					
+				end if
+				
+			end tell
+			
+		end if
 		
 	end tell
 	
@@ -485,7 +546,7 @@ end tell
 -- Here you can alter the order of the elements of the email 
 -- htmlHead must go first
 ------------------------------------------
-set theProgressDetail to htmlHead & theFlaggedProgressDetail & theASAPProgressDetail & theProgressDetail & theInboxProgressDetail & theTodayDetail & "</body></html>"
+set theProgressDetail to htmlHead & theFlaggedProgressDetail & theASAPProgressDetail & theProgressDetail & theInboxProgressDetail & theTodayDetail & theOIADetail & "</body></html>"
 
 
 ------------------------------------------
