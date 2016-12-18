@@ -70,10 +70,7 @@ on main()
 end main
 
 on notify(alertName, alertTitle, alertTExt)
-	tell application "Growl"
-		register as application growlAppName all notifications allNotifications default notifications enabledNotifications icon of application iconApplication
-		notify with name alertName title alertTitle description alertTExt application name growlAppName
-	end tell
+	display notification alertTExt with title alertName subtitle alertTitle
 end notify
 
 main()

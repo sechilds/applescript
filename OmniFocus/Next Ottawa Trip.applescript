@@ -97,12 +97,7 @@ on setDate(selectedItem, startDate, dueDate)
 end setDate
 
 on notify(alertName, alertTitle, alertText)
-	if useGrowl then
-		tell application "Growl"
-			register as application growlAppName all notifications allNotifications default notifications enabledNotifications icon of application iconApplication
-			notify with name alertName title alertTitle description alertText application name growlAppName
-		end tell
-	end if
+	display notification alertText with title alertName subtitle alertTitle
 end notify
 
 on appIsRunning(appName)

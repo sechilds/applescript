@@ -83,8 +83,5 @@ end if
 	theNotificationKind Ð a string giving the notification kind (must be an element of allNotifications)
 *)
 on notify(theTitle, theDescription, theNotificationKind)
-	tell application "Growl"
-		register as application growlAppName all notifications allNotifications default notifications defaultNotifications icon of application iconLoaningApplication
-		notify with name theNotificationKind title theTitle application name growlAppName description theDescription
-	end tell
+	display notification theDescription with title theNotificationKind subtitle theTitle
 end notify

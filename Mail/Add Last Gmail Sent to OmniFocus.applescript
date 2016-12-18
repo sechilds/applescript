@@ -114,28 +114,6 @@ end urlencode
 
 -- Send a notification using Growl
 on growlNotify(message)
-	tell application "System Events"
-		set isRunning to (count of (every process whose bundle identifier is "com.Growl.GrowlHelperApp")) > 0
-	end tell
-	
-	if isRunning then
-		tell application id "com.Growl.GrowlHelperApp"
-			notify with name "Result" title "Successfully added last email sent" description message application name "OmniFocus Sent Email"
-		end tell
-	end if
+	display notification "Successfully added last email sent" with title "OmniFocus Sent Email" subtitle "Result"
 end growlNotify
 
--- Routine to setup Growl
-on growlSetup()
-	tell application "System Events"
-		set isRunning to (count of (every process whose bundle identifier is "com.Growl.GrowlHelperApp")) > 0
-	end tell
-	
-	if isRunning then
-		tell application id "com.Growl.GrowlHelperApp"
-			set the allNotificationsList to {"Result"}
-			set the enabledNotificationsList to {"Result"}
-			register as application "OmniFocus Sent Email" all notifications allNotificationsList default notifications enabledNotificationsList icon of application "OmniFocus.app"
-		end tell
-	end if
-end growlSetup

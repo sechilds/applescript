@@ -35,7 +35,7 @@ set strDefault to short date string of now
 set today to date strDefault
 set yesterday to today - 1 * days
 set tomorrow to today + 1 * days
-tell application id \"com.omnigroup.omnifocus\"
+tell application id \"com.omnigroup.omnifocus2\"
 	tell default document to set soon to now + ((value of setting id \"DueSoonInterval\") as integer)
 end tell 
 "
@@ -163,7 +163,7 @@ on ReadRelvDates(lstTokens)
 			set blnFound to true
 			-- exit repeat
 		else if strToken is "soon" then
-			tell application id "com.omnigroup.omnifocus"
+			tell application id "com.omnigroup.omnifocus2"
 				set item iToken of lstTokens to "date \"" & (((current date) + ((value of setting id "DueSoonInterval" of default document) as integer)) as string) & quote
 			end tell
 			set blnFound to true

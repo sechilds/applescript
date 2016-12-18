@@ -52,15 +52,7 @@ property defaultNotifications : {scriptFinishNotification, scriptStartNotificati
 property allNotifications : defaultNotifications
 
 --check to see that growl is running
-tell application "System Events"
-	set growlIsRunning to Â
-		(count of (every process whose name is "Growl")) > 0
-	if growlIsRunning then
-		tell application "Growl"
-			register as application growlAppName all notifications allNotifications default notifications defaultNotifications icon of application iconOmniFocus
-		end tell
-	end if
-end tell
+set growlIsRunning to true
 
 my notify("Checking for Next Actions", "Scanning all projects and action groups for any that lack a next action", scriptStartNotification, stickyOff, growlIsRunning, iconAppNetworkUtility)
 
@@ -264,19 +256,9 @@ end removeMissingNA
 *)
 
 on notify(theTitle, theDescription, theNotificationKind, messageIsSticky, growlIsRunning, iconOfApplication)
-	if growlIsRunning then
-		tell application "Growl"
-			--register as application growlAppName all notifications allNotifications default notifications defaultNotifications icon of application iconLoaningApplication
-			notify with name theNotificationKind title theTitle description theDescription application name growlAppName sticky messageIsSticky icon of application iconOfApplication
-		end tell
-	end if
+	display notification theDescription with title theNotificationKind subtitle theTitle
 end notify
 
 on notifyWithImageIcon(theTitle, theDescription, theNotificationKind, messageIsSticky, growlIsRunning, pathOfIconImage)
-	if growlIsRunning then
-		tell application "Growl"
-			--register as application growlAppName all notifications allNotifications default notifications defaultNotifications icon of application iconLoaningApplication
-			notify with name theNotificationKind title theTitle description theDescription application name growlAppName sticky messageIsSticky image from location "file://" & pathOfIconImage
-		end tell
-	end if
+	display notification theDescription with title theNotificationKind subtitle theTitle
 end notifyWithImageIcon
