@@ -10,7 +10,7 @@ rule '.dir' do |t|
 end
 
 task :default => [:random, :libraries, :application]
-task :application => [:mail, :omnifocus, :mailplane]
+task :application => [:mail, :omnifocus, :mailplane, :finder]
 
 desc "Build random scripts"
 task :random_compile => ['Random.dir'] + FileList['Random/*.applescript'].ext("scpt")
@@ -29,6 +29,9 @@ task :omnifocus_compile => ['Applications/OmniFocus.dir'] + FileList['OmniFocus/
 
 desc "Build Library scripts"
 task :libraries_compile => ['Libraries.dir'] + FileList['Libraries/*.applescript'].ext("scpt")
+
+desc "Build scripts for Finder"
+task :finder_compile => ['Applications/Finder.dir'] + FileList['Finder/*.applescript'].ext("scpt")
 
 desc "Copy Scripts to Library Folder"
 task :random => :random_compile do
@@ -70,6 +73,14 @@ task :omnifocus => :omnifocus_compile do
 	puts "Done"
 end
 
+desc "Copy Scripts to Finder Folder"
+task :finder => :finder_compile do
+	puts "Copying Finder Scripts to Library Folder"
+	output = "~/Library/Scripts/Applications/Finder"
+	sh %{cp Finder/*.scpt #{output}}
+	puts "Done"
+end
+
 desc "Copy Scripts to Libraries Folder"
 task :libraries => :libraries_compile do
 	puts "Copying Library Scripts to Library Folder"
@@ -85,6 +96,8 @@ task :mail_clean => FileList['Applications/Mail/*.applescript'].sub(/\.applescri
 task :mailplane_clean => FileList['Applications/MailPlane/*.applescript'].sub(/\.applescript/,'.scpt')
 
 task :omnifocus_clean => FileList['Applications/OmniFocus/*.applescript'].sub(/\.applescript/,'.scpt')
+
+task :finder_clean => FileList['Applications/Finder/*.applescript'].sub(/\.applescript/,'.scpt')
 
 task :libraries_clean => FileList['Libraries/*.applescript'].sub(/\.applescript/,'.scpt')
 
