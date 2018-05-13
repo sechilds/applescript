@@ -38,7 +38,7 @@ property pContext : "@Today"
 
 property isToday : true
 
-property isOIAWork : true
+property isOIPAWork : true
 
 -- How many characters of any note should be presented?
 property maxNoteChars : 750
@@ -120,7 +120,7 @@ set htmlHead to "
 		border-top-right-radius:3px;
 	}
 	table tr {
-		text-align: center;
+		text-align: left;
 		padding-left:5px;
 	}
 	table td:first-child {
@@ -170,7 +170,7 @@ set theInboxProgressDetail to ""
 set theFlaggedProgressDetail to ""
 set theASAPProgressDetail to ""
 set theTodayDetail to ""
-set theOIAWorkDetail to ""
+set theOIPAWorkDetail to ""
 
 
 ------------------------------------------
@@ -481,12 +481,12 @@ tell application "OmniFocus"
 		end if
 
 		------------------------------------------
-		-- Include all OIAWork tasks 
+		-- Include all OIPAWork tasks 
 		------------------------------------------
 		
-		if isOIAWork then
+		if isOIPAWork then
 			tell the front document window
-				set perspective name to "OIA Work"
+				set perspective name to "OIPA Work"
 				set oTrees to trees of content
 				set n to count of oTrees
 				
@@ -494,7 +494,7 @@ tell application "OmniFocus"
 				if oTrees is not equal to {} then
 					
 					-- Append the project name to the task list
-					set theOIAWorkDetail to theOIAWorkDetail & "<h2>&#128336; OIA Work Perspective</h2>
+					set theOIPAWorkDetail to theOIPAWorkDetail & "<h2>&#128336; OIPA Work Perspective</h2>
 				
 					<tbody><table><!-- Table Header -->
 					<thead>
@@ -510,25 +510,25 @@ tell application "OmniFocus"
 					repeat with d from 1 to n
 						
 						-- Append the tasks's name to the task list
-						set OIACurrentTask to value of (item d of oTrees)
+						set OIPACurrentTask to value of (item d of oTrees)
 						
-						if due date of TodayCurrentTask is equal to missing value then
+						if due date of OIPACurrentTask is equal to missing value then
 							set dueDate to "-"
 						else
-							set dueDate to due date of OIACurrentTask
+							set dueDate to due date of OIPACurrentTask
 						end if
 						
-						set theOIAWorkDetail to theOIAWorkDetail & "
+						set theOIPAWorkDetail to theOIPAWorkDetail & "
 						
 								<tr>
-									<td>" & name of OIACurrentTask & "</td>
+									<td>" & name of OIPACurrentTask & "</td>
 									<td>" & dueDate & "</td>
 									<td></td>
 								</tr>" & return
 						
 					end repeat
 					
-					set theOIAWorkDetail to theOIAWorkDetail & "</tbody></table>" & return
+					set theOIPAWorkDetail to theOIPAWorkDetail & "</tbody></table>" & return
 					
 					
 				end if
@@ -546,10 +546,10 @@ end tell
 -- Here you can alter the order of the elements of the email 
 -- htmlHead must go first
 ------------------------------------------
-set theProgressDetail to htmlHead & theFlaggedProgressDetail & theASAPProgressDetail & theProgressDetail & theInboxProgressDetail & theTodayDetail & theOIAWorkDetail & "</body></html>"
+set theProgressDetail to htmlHead & theFlaggedProgressDetail & theASAPProgressDetail & theProgressDetail & theInboxProgressDetail & theTodayDetail & theOIPAWorkDetail & "</body></html>"
 
 
 ------------------------------------------
 -- Send the HTML email via the CLI 
 ------------------------------------------
-do shell script "echo " & quote & theProgressDetail & quote & " | send_me_email " & theSubject 
+do shell script "echo " & quote & theProgressDetail & quote & " | send_me_email " & quote & theSubject & quote
