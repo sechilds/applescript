@@ -216,36 +216,38 @@ tell application "OmniFocus"
 					
 					set theCurrentTask to item b of theDueTasks
 					-- Append the tasks's name to the task list
-					if due date of theCurrentTask < theEndDate then set isOverdue to true
-					
-					if note of theCurrentTask as string is equal to "" then set theProgressDetail to theProgressDetail & "
-					
-						<tr>
-							<td>" & name of theCurrentTask & "</td>
-							<td>" & due date of theCurrentTask & "</td>
-							<td></td>
-						</tr>" & return
-					
-					-- Shrink the note down to prevent really long notes clogging up email
-					set longNote to note of theCurrentTask as string
-					if length of longNote is less than maxNoteChars then
-						set taskNote to longNote
-					else
-						set taskNote to text 1 thru maxNoteChars of longNote
+					if defer date of theCurrentTask is not greater than theStartDate then
+						if due date of theCurrentTask < theEndDate then set isOverdue to true
+						
+						if note of theCurrentTask as string is equal to "" then set theProgressDetail to theProgressDetail & "
+						
+							<tr>
+								<td>" & name of theCurrentTask & " (" & name of theCurrentProject & ")</td>
+								<td>" & due date of theCurrentTask & "</td>
+								<td></td>
+							</tr>" & return
+						
+						-- Shrink the note down to prevent really long notes clogging up email
+						set longNote to note of theCurrentTask as string
+						if length of longNote is less than maxNoteChars then
+							set taskNote to longNote
+						else
+							set taskNote to text 1 thru maxNoteChars of longNote
+						end if
+						
+						if note of theCurrentTask as string is not equal to "" then set theProgressDetail to theProgressDetail & "
+						
+							<tr>
+								<td>" & name of theCurrentTask & " (" & name of theCurrentProject &  ")</td>
+								<td>" & due date of theCurrentTask & "</td>
+								<td rowspan='2'></td>
+							</tr>
+						
+							<tr>
+								<td colspan='2'><small>" & taskNote & "</small></td>
+							</tr>" & return
 					end if
-					
-					if note of theCurrentTask as string is not equal to "" then set theProgressDetail to theProgressDetail & "
-					
-						<tr>
-							<td>" & name of theCurrentTask & "</td>
-							<td>" & due date of theCurrentTask & "</td>
-							<td rowspan='2'></td>
-						</tr>
-					
-						<tr>
-							<td colspan='2'><small>" & taskNote & "</small></td>
-						</tr>" & return
-					
+						
 				end repeat
 				set theProgressDetail to theProgressDetail & "</tbody></table>" & return
 				
@@ -262,7 +264,7 @@ tell application "OmniFocus"
 			
 			-- Include the OmniFocus Flagged
 			set theFlaggedDetail to false
-			set theFlaggedTasks to (every flattened task whose flagged is true and completed is false)
+			set theFlaggedTasks to (every flattened task whose flagged is true and completed is false and (defer date is missing value or defer date is less than or equal to theStartDate))
 			
 			-- Loop through any detected tasks
 			if theFlaggedTasks is not equal to {} then
@@ -295,7 +297,7 @@ tell application "OmniFocus"
 					set theFlaggedProgressDetail to theFlaggedProgressDetail & "
 				
 						<tr>
-							<td>" & name of theFlaggedCurrentTask & "</td>
+							<td>" & name of theFlaggedCurrentTask & " (" & name of the parent task of theFlaggedCurrentTask & ")</td>
 							<td>" & dueDate & "</td>
 							<td></td>
 						</tr>" & return
@@ -410,7 +412,7 @@ tell application "OmniFocus"
 					set theASAPProgressDetail to theASAPProgressDetail & "
 					
 							<tr>
-								<td>" & name of theASAPCurrentTask & "</td>
+								<td>" & name of theASAPCurrentTask & " (" & the name of the parent task of theASAPCurrentTask  & ")</td>
 								<td>" & dueDate & "</td>
 								<td></td>
 							</tr>" & return
@@ -464,7 +466,7 @@ tell application "OmniFocus"
 						set theTodayDetail to theTodayDetail & "
 						
 								<tr>
-									<td>" & name of TodayCurrentTask & "</td>
+									<td>" & name of TodayCurrentTask & " (" & the name of the parent task of TodayCurrentTask & ")</td>
 									<td>" & dueDate & "</td>
 									<td></td>
 								</tr>" & return
@@ -521,7 +523,7 @@ tell application "OmniFocus"
 						set theOIPAWorkDetail to theOIPAWorkDetail & "
 						
 								<tr>
-									<td>" & name of OIPACurrentTask & "</td>
+									<td>" & name of OIPACurrentTask & " (" & the name of the parent task of OIPACurrentTask  & ")</td>
 									<td>" & dueDate & "</td>
 									<td></td>
 								</tr>" & return
