@@ -552,5 +552,4 @@ set theProgressDetail to htmlHead & theFlaggedProgressDetail & theASAPProgressDe
 ------------------------------------------
 -- Send the HTML email via the CLI 
 ------------------------------------------
-do shell script "echo " & quote & theProgressDetail & quote & " | mail -s \"$(echo \"" & theSubject & "
-Content-Type: text/html\")\" " & toAddress
+do shell script "echo " & quote & theProgressDetail & quote & " | send_me_email " & theSubject 
